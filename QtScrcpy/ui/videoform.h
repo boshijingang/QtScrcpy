@@ -34,6 +34,7 @@ public:
     void switchFullScreen();
 
     bool isHost();
+    QVariant inputMethodQuery(Qt::InputMethodQuery property) const override;
 
 private:
     void onFrame(int width, int height, uint8_t* dataY, uint8_t* dataU, uint8_t* dataV,
@@ -58,6 +59,8 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    void inputMethodEvent(QInputMethodEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
 
     void paintEvent(QPaintEvent *) override;
     void showEvent(QShowEvent *event) override;
@@ -85,6 +88,7 @@ private:
     bool m_skin = true;
     QPoint m_fullScreenBeforePos;
     QString m_serial;
+    QPointF m_focusPos;
 };
 
 #endif // VIDEOFORM_H

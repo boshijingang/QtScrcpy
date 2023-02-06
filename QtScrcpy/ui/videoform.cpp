@@ -76,6 +76,11 @@ void VideoForm::initUI()
     setMouseTracking(true);
     m_videoWidget->setMouseTracking(true);
     ui->keepRatioWidget->setMouseTracking(true);
+    // 设置窗口接受输入法
+    setFocusPolicy(Qt::ClickFocus);
+    setAttribute(Qt::WA_InputMethodEnabled, true);
+    //setAttribute(Qt::WA_KeyCompression);
+    
 }
 
 QRect VideoForm::getGrabCursorRect()
@@ -581,6 +586,13 @@ void VideoForm::mousePressEvent(QMouseEvent *event)
             qreal y = event->localPos().y() / m_videoWidget->size().height();
             QString posTip = QString(R"("pos": {"x": %1, "y": %2})").arg(x).arg(y);
             qInfo() << posTip.toStdString().c_str();
+            qreal in_x = event->windowPos().x();
+            qreal in_y = event->windowPos().y();
+            QString posTip1 = QString(R"("winPos": {"x": %1, "y": %2})").arg(in_x).arg(in_y);
+            qInfo() << posTip1.toStdString().c_str();
+            m_focusPos = event->windowPos();
+            //QApplication::inputMethod()->setInputItemRectangle(QRectF(in_x, in_y, 20, 0));
+            //QApplication::inputMethod()->inputItemClipRectangleChanged();
         }
     } else {
         if (event->button() == Qt::LeftButton) {
@@ -704,6 +716,34 @@ void VideoForm::keyReleaseEvent(QKeyEvent *event)
         return;
     }
     emit device->keyEvent(event, m_videoWidget->frameSize(), m_videoWidget->size());
+}
+
+void VideoForm::inputMethodEvent(QInputMethodEvent *event) {
+    QString inputTextTips = QString(R"("input": {"text": %1})").arg(event->commitString());
+    qInfo() << inputTextTips.toStdString().c_str();
+    QString inputText = event->commitString();
+    //QWidget::inputMethodEvent(event);
+    auto device = qsc::IDeviceManage::getInstance().getDevice(m_serial);
+    if (!device) {
+        return;
+    }
+    device->postTextInput(inputText);
+}
+
+void VideoForm::focusInEvent(QFocusEvent* event) {
+    QString inputText = QString(R"("focus")");
+    qInfo() << inputText.toStdString().c_str();
+    QWidget::focusInEvent(event);
+}
+
+QVariant VideoForm::inputMethodQuery(Qt::InputMethodQuery property) const
+{
+    switch (property) {
+    case Qt::ImCursorRectangle:
+        return QRect(m_focusPos.x(), m_focusPos.y(), 200, 20);
+    default:
+        return QWidget::inputMethodQuery(property);
+    }
 }
 
 void VideoForm::paintEvent(QPaintEvent *paint)

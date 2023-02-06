@@ -1,11 +1,11 @@
 #include "winres.h"
 
 IDI_ICON1       ICON      "QtScrcpy.ico"
-// GB2312ç¼–ç çš„è¯ï¼Œåœ¨ä¸­æ–‡ç³»ç»Ÿä¸Šæ‰“åŒ…FileDescriptionå¯ä»¥æ˜¾ç¤ºä¸­æ–‡
-// åœ¨github actionï¼ˆè‹±æ–‡ç³»ç»Ÿï¼‰æ‰“åŒ…åFileDescriptionæ˜¯ä¹±ç ï¼Œutf8ç¼–ç ä¹Ÿä¸è¡Œã€‚ã€‚
+// GB2312±àÂëµÄ»°£¬ÔÚÖĞÎÄÏµÍ³ÉÏ´ò°üFileDescription¿ÉÒÔÏÔÊ¾ÖĞÎÄ
+// ÔÚgithub action£¨Ó¢ÎÄÏµÍ³£©´ò°üºóFileDescriptionÊÇÂÒÂë£¬utf8±àÂëÒ²²»ĞĞ¡£¡£
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH
- PRODUCTVERSION VERSION_MAJOR,VERSION_MINOR,VERSION_PATCH
+ FILEVERSION 1,24,0,1
+ PRODUCTVERSION 1,24,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -20,12 +20,12 @@ BEGIN
     BEGIN
         BLOCK "080404b0"
         BEGIN
-            VALUE "CompanyName", "RanKun"
-            VALUE "FileDescription", "Android real-time display control software"
-            VALUE "FileVersion", VERSION_RC_STR
-            VALUE "LegalCopyright", "Copyright (C) RanKun 2018-2038. All rights reserved."
-            VALUE "ProductName", "QtScrcpy"
-            VALUE "ProductVersion", VERSION_RC_STR
+            VALUE "CompanyName", "360.cn"
+            VALUE "FileDescription", "360ÊÖ»úÖúÊÖÑİÊ¾Ä£¿é"
+            VALUE "FileVersion", "1, 24, 0, 1\0"
+            VALUE "LegalCopyright", "(C) 360.cn Inc. All Rights Reserved."
+            VALUE "ProductName", "360ÊÖ»úÖúÊÖÑİÊ¾Ä£¿é"
+            VALUE "ProductVersion", "1, 24, 0, 1\0"
         END
     END
     BLOCK "VarFileInfo"
